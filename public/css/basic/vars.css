@@ -1,0 +1,21 @@
+@font-face {
+  font-family: Monotype_Corsiva;
+  src: url('../fonts/Monotype_Corsiva.eot');
+  src: url('../fonts/Monotype_Corsiva.eot?iefix') format('eot'), url('../fonts/Monotype_Corsiva.woff') format('woff'), url('../fonts/Monotype_Corsiva.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: Aksent_Normal;
+  src: url("../fonts/Aksent_Normal.ttf");
+  src: url("../fonts/Aksent_Normal.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: ALGER;
+  src: url("../fonts/ALGER.TTF");
+  src: url("../fonts/ALGER.TTF") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

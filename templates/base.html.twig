@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Персональная страница воспитателя Горемыкиной Ирины Геннадьевны - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="{{ asset('css/basic/layout.css') }}">
+</head>
+<body>
+<div id="wrapper"></div>
+<div id="wrapper-hide"></div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+<script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>
