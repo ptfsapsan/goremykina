@@ -126,14 +126,16 @@ class AdminController extends AbstractController
     public function gallerySubcategory(int $id)
     {
         $subcategory = $this->getGallerySubcategoryRepository()->getById($id);
-        $category = $this->getGalleryCategoryRepository()->findOneBy(['category_id' => $subcategory->getId()]);
+        $categoryId = $subcategory->getCategoryId();
+        $category = $this->getGalleryCategoryRepository()->findOneBy(['id' => $categoryId]);
 
         return $this->render('admin/gallery-subcategory.html.twig', [
             'category' => $category,
             'subcategory' => $subcategory,
-            'images' => $this->getGallerySubcategoryRepository()->findAll(),
+            'images' => $this->getGalleryImageRepository()->findBy(['subcategory_id' => $id]),
         ]);
     }
+
     /**
      * @Route("blog-themes", name="admin-blog-themes")
      */

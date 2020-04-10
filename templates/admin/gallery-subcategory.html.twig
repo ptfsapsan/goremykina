@@ -1,10 +1,22 @@
 {% extends 'admin.html.twig' %}
 
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery.uploadifive.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/admin/gallery-subcategory.js') }}"></script>
+{% endblock %}
+
+
 {% block content %}
+    <input type="hidden" id="categoryId" value="{{ category.id }}">
+    <input type="hidden" id="subcategoryId" value="{{ subcategory.id }}">
+    <div>
+        <div>
+            <div id="load_button"></div>
+            <div id="queue"></div>
+        </div>
+        <div id="files"></div>
+        <div class="clear"></div>
+
+    </div>
 
 {% endblock %}
-
-{% block stylesheets %}
-
-{% endblock %}
-

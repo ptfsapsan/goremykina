@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/ajax/")
  */
 class AjaxController extends AbstractController
 {
+    use ControllerTrait;
     /**
      * @Route("get-background-image")
      * @param Request $request
@@ -33,4 +37,57 @@ class AjaxController extends AbstractController
 
         return $this->json(['image' => $images[$index]]);
     }
+
+    /**
+     * @Route("get-gallery-images")
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @return JsonResponse
+     */
+    public function getGalleryImages(Request $request, SerializerInterface $serializer)
+    {
+        $subcategoryId = $request->request->getInt('subcategoryId');
+        $images = $this->getGalleryImageRepository()->findBy(['subcategory_id' => $subcategoryId]);
+
+        return $this->json(json_decode($serializer->serialize($images, 'json'), true));
+    }
+
+    /**
+     * @Route("upload-gallery-image")
+     * @param Request $request
+     * @return Response
+     */
+    public function uploadGalleryImage(Request $request)
+    {
+        $file = $request->files->get('file');
+        $categoryId = $request->request->getInt('categoryId');
+        $subcategoryId = $request->request->getInt('subcategoryId');
+        try {
+            $this->getGalleryImageRepository()->saveFile($categoryId, $subcategoryId, $file);
+        } catch (Exception $e) {
+            return $this->json([
+                'status' => false,
+                'error' => $e->getMessage(),
+            ]);
+        }
+
+        return $this->json([
+            'status' => true,
+        ]);
+    }
+
+    /**
+     * @Route("delete-gallery-image")
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     */
+    public function deleteGalleryImage(Request $request)
+    {
+        $id = $request->request->getInt('id');
+        $this->getGalleryImageRepository()->delete($id);
+
+        return new Response();
+    }
+
 }

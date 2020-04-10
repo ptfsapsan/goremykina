@@ -31,7 +31,9 @@
                 {% for subcategory in subcategories %}
                     {% set id = subcategory.id %}
                     <tr>
-                        <td>{{ id }}</td>
+                        <td>
+                            <a href="{{ path('admin-gallery-subcategory', {'id': id}) }}">{{ id }}</a>
+                        </td>
                         <td>
                             <input type="text" value="{{ subcategory.title }}"
                                    title="" class="cat_title" data-id="{{ id }}">
