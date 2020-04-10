@@ -24,13 +24,15 @@ class AdminMenu
     {
         $menu = $this->factory->createItem('root');
         $menu->addChild('Страницы сайта', ['route' => 'admin-pages', 'attributes' => ['title' => 'Страницы сайта']]);
-        $menu->addChild('Галерея', ['uri' => 'javascript:'])
-            ->addChild('разделы', ['route' => 'admin-gallery-sections', 'attributes' => ['title' => 'Разделы галереи']]);
+
+        $gallery = $menu->addChild('Галерея', ['uri' => 'javascript:']);
+        $gallery->addChild('категории', ['route' => 'admin-gallery-categories', 'attributes' => ['title' => 'Разделы галереи']]);
+//        $gallery->addChild('подкатегории', ['route' => 'admin-gallery-subcategories', 'attributes' => ['title' => 'Подразделы галереи']]);
 
         $blog = $menu->addChild('Блог', ['uri' => 'javascript:']);
+        $blog->addChild('добавить', ['route' => 'admin-add-article', 'attributes' => ['title' => 'Темы блога']]);
         $blog->addChild('темы', ['route' => 'admin-blog-themes', 'attributes' => ['title' => 'Темы блога']]);
         $blog->addChild('статьи', ['route' => 'admin-blog-articles', 'attributes' => ['title' => 'Темы блога']]);
-        $blog->addChild('добавить', ['route' => 'admin-add-article', 'attributes' => ['title' => 'Темы блога']]);
         $blog->addChild('коментарии', ['route' => 'admin-blog-comments', 'attributes' => ['title' => 'Темы блога']]);
 
         $menu->addChild('Выйти', ['route' => 'app_logout', 'attributes' => ['title' => 'Выйти']]);

@@ -1,0 +1,61 @@
+{% extends 'admin.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/admin/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/basic/checkbox-button.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/admin/gallery-categories.js') }}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <form method="post">
+            <input type="hidden" name="act" value="add">
+            <input type="text" name="title" title="">
+            <input type="submit" value="Добавить">
+        </form>
+
+        {% if categories %}
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Название категории</th>
+                    <th>Активность</th>
+                    <th>Удаление</th>
+                </tr>
+
+                {% for category in categories %}
+                    {% set id = category.id %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('admin-gallery-subcategories', {"id": id}) }}">{{ id }}</a>
+                        </td>
+                        <td>
+                            <input type="text" value="{{ category.title }}"
+                                title="" class="cat_title" data-id="{{ id }}">
+                        </td>
+                        <td>
+                            <div class="can-toggle">
+                                <input type="hidden" name="active" value="yes">
+                                <input type="checkbox" name="active" id="active_{{ id }}" data-id="{{ id }}"
+                                    value="yes" {{ category.active == 'yes' ? 'checked' : '' }}>
+                                <label for="active_{{ id }}">
+                                    <span class="toggle-switch" data-checked="On"
+                                        data-unchecked="Off"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="?act=delete&id={{ id }}">
+                                <img src="{{ asset('images/delete-icon.png') }}" alt="Удалить">
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
