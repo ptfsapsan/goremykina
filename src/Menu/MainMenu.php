@@ -23,7 +23,7 @@ class MainMenu
     /**
      * @return ItemInterface
      */
-    public function createMainMenu(): ItemInterface
+    public function createMenu(): ItemInterface
     {
         $menu = $this->factory->createItem('root');
         $menu->addChild('Главная', ['route' => 'index', 'attributes' => ['title' => 'Главная']]);

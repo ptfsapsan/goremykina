@@ -1,0 +1,42 @@
+{% extends 'admin.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/admin/index.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery.uploadifive.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/tinymce/langs/ru.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/admin/index.js') }}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+    <div>
+        Страница
+        <? $select = new Select('pages');
+   $select->setValueOptions($this->pages);
+        $select->setValue($this->page);
+        echo $this->formElement($select);
+        ?>
+        <div>
+            <div id="load_button"></div>
+            <div id="queue"></div>
+        </div>
+        <div id="files"></div>
+        <div class="clear"></div>
+
+
+        <p>
+            Для того, чтобы вставить картинку нужно ввести код по следующему шаблону $$$имя_файла%%%.
+            Например, $$$123456.png%%%.
+        </p>
+        <form method="post">
+            <input type="hidden" name="act" value="save_text">
+            <input type="hidden" name="link" value="<?=$this->page?>">
+            <textarea name="text" id="editor" cols="30" rows="10"><?=
+         $this->page_text?></textarea>
+            <input type="submit" value="Сохранить">
+        </form>
+    </div>
+{% endblock %}

@@ -9,8 +9,14 @@ parameters:
 services:
   app.knp.main_menu:
     class: Knp\Menu\MenuItem
-    factory: ['@App\Menu\MainMenu', createMainMenu]
+    factory: ['@App\Menu\MainMenu', createMenu]
     arguments: ["@request_stack"]
     tags:
       - { name: knp_menu.menu, alias: main_menu }
+  app.knp.admin_menu:
+    class: Knp\Menu\MenuItem
+    factory: ['@App\Menu\AdminMenu', createMenu]
+    arguments: ["@request_stack"]
+    tags:
+      - { name: knp_menu.menu, alias: admin_menu }
 
