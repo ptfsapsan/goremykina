@@ -7,14 +7,18 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" href="{{ asset('css/basic/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/basic/menu.css') }}">
 </head>
 <body>
 <div id="wrapper"></div>
 <div id="wrapper-hide"></div>
 
-    <div id="content">
-        {% block content %}{% endblock %}
+<div id="content">
+    <div id="main_menu">
+        {{ knp_menu_render('main_menu') }}
     </div>
+    {% block content %}{% endblock %}
+</div>
 
 <script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>

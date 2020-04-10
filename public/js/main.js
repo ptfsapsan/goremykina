@@ -9,7 +9,6 @@ const T = {
     setBackground: function () {
         $.post('/ajax/get-background-image', {backgroundImage: T.backgroundImage}, function (data) {
             T.backgroundImage = data.image;
-            console.log(data.image);
             $('#wrapper-hide').hide().css('background-image', 'url("' + data.image + '")').fadeIn(1000, function () {
                 $('#wrapper').css('background-image', 'url("' + data.image + '")');
                 $('#wrapper-hide').hide();

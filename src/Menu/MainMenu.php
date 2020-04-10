@@ -27,19 +27,14 @@ class MainMenu
     {
         $menu = $this->factory->createItem('root');
         $menu->addChild('Главная', ['route' => 'index', 'attributes' => ['title' => 'Главная']]);
-        $menu->addChild('Конкурсы для детей', ['route' => 'new-order-kid', 'attributes' => ['title' => 'Конкурсы для детей']]);
-        $menu->addChild('Конкурсы для педагогов', ['route' => 'new-order-educator', 'attributes' => ['title' => 'Конкурсы для педагогов']]);
-        $menu->addChild('Статьи', ['route' => 'articles', 'attributes' => ['title' => 'Статьи']]);
-        $menu->addChild('Образцы дипломов', ['route' => 'diploma', 'attributes' => ['title' => 'Образцы дипломов']]);
-        $menu->addChild('Правила', ['route' => 'rules', 'attributes' => ['title' => 'Правила']]);
-        $menu->addChild('Результаты конкурсов', ['route' => 'results', 'attributes' => ['title' => 'Результаты конкурсов']]);
-        $menu->addChild('Галерея работ', ['route' => 'gallery', 'attributes' => ['title' => 'Галерея работ']]);
-        $menu->addChild('Отзывы о сайте', ['route' => 'reviews', 'attributes' => ['title' => 'Отзывы о сайте']]);
+        $menu->addChild('Обо мне', ['route' => 'about', 'attributes' => ['title' => 'Обо мне']]);
+        $menu->addChild('Блог', ['route' => 'blog', 'attributes' => ['title' => 'Блог']]);
+        $menu->addChild('Методические разработки', ['route' => 'methodical', 'attributes' => ['title' => 'Методические разработки']]);
+        $menu->addChild('Фотогалерея', ['route' => 'gallery', 'attributes' => ['title' => 'Статьи']])
+            ->addChild('111', ['route' => 'blog', 'attributes' => ['title' => 'Блог']]);
         $menu->addChild('Контакты', ['route' => 'contacts', 'attributes' => ['title' => 'Контакты']]);
         if ($this->security->isGranted('ROLE_USER')) {
             $menu->addChild('Выйти', ['route' => 'app_logout', 'attributes' => ['title' => 'Выйти']]);
-        } else {
-            $menu->addChild('Войти', ['route' => 'app_login', 'attributes' => ['title' => 'Войти']]);
         }
         $menu->setChildrenAttribute('class', 'dd-menu');
 
