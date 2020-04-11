@@ -14,11 +14,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AbstractRepository extends ServiceEntityRepository
 {
     protected $container;
+    protected $entity;
 
-    public function __construct(ManagerRegistry $registry, $entity, ContainerInterface $container = null)
+    public function __construct(ManagerRegistry $registry, ContainerInterface $container = null)
     {
         $this->container = $container;
-        parent::__construct($registry, $entity);
+        parent::__construct($registry, $this->entity);
     }
 
     /**

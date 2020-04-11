@@ -21,10 +21,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class MainImageRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry, ContainerInterface $container)
-    {
-        parent::__construct($registry, MainImage::class, $container);
-    }
+    protected $entity = MainImage::class;
 
     /**
      * @param UploadedFile $file
@@ -52,7 +49,7 @@ class MainImageRepository extends AbstractRepository
         $item = new MainImage();
         $item->setBig($big);
         $item->setThumb($thumb);
-        $item->setActive('yes');
+        $item->setActive('no');
         $this->_em->persist($item);
         $this->_em->flush();
     }
@@ -76,6 +73,25 @@ class MainImageRepository extends AbstractRepository
         }
 
         return $name;
+    }
+
+
+    /**
+     * @param int $id
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws Exception
+     */
+    public function changeActiveOne(int $id)
+    {
+        $qb = $this->createQueryBuilder('mp');
+        $query = $qb->update()
+            ->set('mp.active', $qb->expr()->literal('no'))
+//            ->setParameter(1, $qb->expr()->literal('no'))
+            ->getQuery();
+        $query->execute();
+        
+        $this->changeActive($id);
     }
 
 }

@@ -214,7 +214,11 @@ class AdminController extends AbstractController
                     case 'delete':
                         $this->getMainImageRepository()->delete($id);
                         break;
+                    case 'active':
+                        $this->getMainImageRepository()->changeActiveOne($id);
+                        break;
                 }
+                return $this->redirectToRoute('admin-main-images');
             }
         }
 

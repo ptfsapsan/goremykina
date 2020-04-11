@@ -19,10 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class GallerySubcategoryRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, GallerySubcategory::class);
-    }
+    protected $entity = GallerySubcategory::class;
 
     /**
      * @param int $id

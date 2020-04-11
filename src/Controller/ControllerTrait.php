@@ -31,6 +31,8 @@ trait ControllerTrait
     private $pageRepository;
     /** @var MainImageRepository */
     private $mainImageRepository;
+    /** @var MainImage */
+    private $mainImage;
 
     /**
      * @required
@@ -92,13 +94,25 @@ trait ControllerTrait
     /**
      * @return MainImageRepository
      */
-    private function getMainImageRepository()
+    protected function getMainImageRepository()
     {
         if (empty($this->mainImageRepository)) {
             $this->mainImageRepository = $this->doctrine->getRepository(MainImage::class);
         }
 
         return $this->mainImageRepository;
+    }
+
+    /**
+     * @return MainImage
+     */
+    protected function getMainImage()
+    {
+        if (empty($this->mainImage)) {
+            $this->mainImage = $this->getMainImageRepository()->findOneBy(['active' => 'yes']);
+        }
+
+        return $this->mainImage;
     }
 
 

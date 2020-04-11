@@ -1,5 +1,9 @@
 {% extends 'admin.html.twig' %}
 
+{% block javascripts %}
+<script src="{{ asset('js/admin/main-image.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <form enctype="multipart/form-data" method="post">
         <input type="file" name="file">
@@ -17,8 +21,8 @@
                 <tr>
                     <td><img src="{{ asset('images/main-images/'~image.big) }}" alt=""></td>
                     <td>
-                        <input type="radio" name="activeImage" title="" value="{{ image.id }}"
-                                {{ image.active == 'yes' ? 'checked' : '' }}>
+                        <input type="radio" name="active-image" title="" value="{{ image.id }}"
+                            {{ image.active == 'yes' ? 'checked' : '' }}>
                     </td>
                     <td>
                         <a href="?act=delete&id={{ image.id }}">

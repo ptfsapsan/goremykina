@@ -19,10 +19,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class GalleryImageRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry, ContainerInterface $container)
-    {
-        parent::__construct($registry, GalleryImage::class, $container);
-    }
+    protected $entity = GalleryImage::class;
 
     /**
      * @param int $categoryId

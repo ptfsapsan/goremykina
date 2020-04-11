@@ -18,6 +18,7 @@ class IndexController extends AbstractController
     {
         return $this->render('index/index.html.twig', [
             'page' => $this->getPageRepository()->findOneBy(['link' => 'index']),
+            'mainImage' => $this->getMainImage(),
         ]);
     }
 
@@ -41,6 +42,7 @@ class IndexController extends AbstractController
             'form' => $form->createView(),
             'last_username' => $lastUsername,
             'error' => $error ? $error->getMessage() : null,
+            'mainImage' => $this->getMainImage(),
         ]);
     }
 

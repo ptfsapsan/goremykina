@@ -1,17 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %} Главная{% endblock %}
-{% block stylesheets %}
-{#    <link rel="stylesheet" href="{{ asset('css/index/index.css') }}">#}
-{% endblock %}
 
 {% block content %}
     <div id="home">
         <div id="wrap">
-            {{ page.text }}
-
-
+            {{ page.text|raw }}
         </div>
-
     </div>
 {% endblock %}
 

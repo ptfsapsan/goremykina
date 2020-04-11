@@ -15,10 +15,7 @@ use Exception;
  */
 class PageRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Page::class);
-    }
+    protected $entity = Page::class;
 
     /**
      * @param string $link

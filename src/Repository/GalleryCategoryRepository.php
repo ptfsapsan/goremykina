@@ -17,10 +17,7 @@ use Exception;
  */
 class GalleryCategoryRepository extends AbstractRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, GalleryCategory::class);
-    }
+    protected $entity = GalleryCategory::class;
 
     /**
      * @param int $id
