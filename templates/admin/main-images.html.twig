@@ -1,0 +1,32 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+    <form enctype="multipart/form-data" method="post">
+        <input type="file" name="file">
+        <input type="submit" value="Загрузить">
+    </form>
+
+    {% if images %}
+        <table>
+            <tr>
+                <th></th>
+                <th>Активный</th>
+                <th>Удалить</th>
+            </tr>
+            {% for image in images %}
+                <tr>
+                    <td><img src="{{ asset('images/main-images/'~image.big) }}" alt=""></td>
+                    <td>
+                        <input type="radio" name="activeImage" title="" value="{{ image.id }}"
+                                {{ image.active == 'yes' ? 'checked' : '' }}>
+                    </td>
+                    <td>
+                        <a href="?act=delete&id={{ image.id }}">
+                            <img src="{{ asset('images/delete-icon.png') }}" alt="">
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}

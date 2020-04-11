@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\GalleryImage;
 use App\Model\Images;
 use App\Model\Tools;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -18,32 +17,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @method GalleryImage[]    findAll()
  * @method GalleryImage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GalleryImageRepository extends ServiceEntityRepository
+class GalleryImageRepository extends AbstractRepository
 {
-    /** @var ContainerInterface  */
-    private $container;
-
     public function __construct(ManagerRegistry $registry, ContainerInterface $container)
     {
-        $this->container = $container;
-        parent::__construct($registry, GalleryImage::class);
+        parent::__construct($registry, GalleryImage::class, $container);
     }
-
-    /**
-     * @param int $id
-     * @return GalleryImage
-     * @throws Exception
-     */
-    public function getById(int $id)
-    {
-        $item = $this->find($id);
-        if (!$item) {
-            throw new Exception('Картинка не найдена');
-        }
-
-        return $item;
-    }
-
 
     /**
      * @param int $categoryId
@@ -53,12 +32,7 @@ class GalleryImageRepository extends ServiceEntityRepository
      */
     public function saveFile(int $categoryId, int $subcategoryId, UploadedFile $file): void
     {
-        if ($file->getError() != 0) {
-            throw new Exception($file->getErrorMessage());
-        }
-        if (!Tools::isImage($file->getMimeType())) {
-            throw new Exception('Файл не является картинкой');
-        }
+        Images::verifyImageFile($file);
         $dir = sprintf(
             '%s/public/images/gallery/%d/%d/',
             $this->container->get('kernel')->getProjectDir(),
@@ -101,16 +75,5 @@ class GalleryImageRepository extends ServiceEntityRepository
         }
 
         return $name;
-    }
-
-    /**
-     * @param int $id
-     * @throws Exception
-     */
-    public function delete(int $id)
-    {
-        $item = $this->getById($id);
-        $this->_em->remove($item);
-        $this->_em->flush();
     }
 }

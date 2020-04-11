@@ -7,9 +7,13 @@ namespace App\Controller;
 use App\Entity\GalleryCategory;
 use App\Entity\GalleryImage;
 use App\Entity\GallerySubcategory;
+use App\Entity\MainImage;
+use App\Entity\Page;
 use App\Repository\GalleryCategoryRepository;
 use App\Repository\GalleryImageRepository;
 use App\Repository\GallerySubcategoryRepository;
+use App\Repository\MainImageRepository;
+use App\Repository\PageRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectRepository;
 
@@ -23,6 +27,10 @@ trait ControllerTrait
     private $gallerySubcategoryRepository;
     /** @var GalleryImageRepository */
     private $galleryImageRepository;
+    /** @var PageRepository */
+    private $pageRepository;
+    /** @var MainImageRepository */
+    private $mainImageRepository;
 
     /**
      * @required
@@ -67,6 +75,30 @@ trait ControllerTrait
         }
 
         return $this->galleryImageRepository;
+    }
+
+    /**
+     * @return PageRepository
+     */
+    private function getPageRepository()
+    {
+        if (empty($this->pageRepository)) {
+            $this->pageRepository = $this->doctrine->getRepository(Page::class);
+        }
+
+        return $this->pageRepository;
+    }
+
+    /**
+     * @return MainImageRepository
+     */
+    private function getMainImageRepository()
+    {
+        if (empty($this->mainImageRepository)) {
+            $this->mainImageRepository = $this->doctrine->getRepository(MainImage::class);
+        }
+
+        return $this->mainImageRepository;
     }
 
 

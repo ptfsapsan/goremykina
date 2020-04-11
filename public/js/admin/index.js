@@ -13,7 +13,7 @@ $(function(){
         queueID: "queue",
         fileSizeLimit: '8000',
         formData: {
-            page: vars.link
+            page: ''
         },
         uploadScript: '/ajax/upload-page-files',
         onSelect: function (){
@@ -21,7 +21,7 @@ $(function(){
         },
         onUploadComplete: function (file, data){
             var d = eval('(' + data + ')');
-            if(d.result == 'error'){
+            if(d.result === 'error'){
                 //showMessages(d.message, 'error');
             }
             else{
@@ -36,13 +36,13 @@ $(function(){
     });
     getTempFiles();
 
-    $('[name=pages]').on('change', function(){
-       location.href = '?act=change_page&page=' + $(this).val();
+    $('#page-select').on('change', function(){
+       location.href = '/admin/pages/' + $(this).val();
     });
 });
 
 function getTempFiles(){
-    $('#files').load('/ajax/get-page-files', {page: vars.link}, function (data){
+    $('#files').load('/ajax/get-page-files', {page: ''}, function (data){
         // удаление
         $('.del_file').on('click', function (){
             $.post('/ajax/delete-page-file', {name: $(this).data('name')}, getTempFiles);

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Exception;
@@ -20,11 +21,30 @@ class AdminController extends AbstractController
     use ControllerTrait;
 
     /**
-     * @Route("pages", name="admin-pages")
+     * @Route("pages/{link}", name="admin-pages")
+     * @param Request $request
+     * @param string $link
+     * @return Response
+     * @throws Exception
      */
-    public function index()
+    public function pages(Request $request, string $link = 'index')
     {
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $params = $request->request->all();
+            switch ($params['act']) {
+                case 'text':
+                    $this->getPageRepository()->saveText($link, $params['text']);
+                    break;
+            }
+            return $this->redirectToRoute('admin-pages', ['link' => $link]);
+        }
+
+        $pages = $this->getPageRepository()->findAll();
+        $page = $this->getPageRepository()->findOneBy(['link' => $link]);
+
         return $this->render('admin/pages.html.twig', [
+            'pages' => $pages,
+            'currentPage' => $page,
         ]);
     }
 
@@ -169,6 +189,37 @@ class AdminController extends AbstractController
     public function blogComments()
     {
         return $this->render('admin/pages.html.twig', [
+        ]);
+    }
+
+    /**
+     * @Route("main-images", name="admin-main-images")
+     * @param Request $request
+     * @return Response
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws NonUniqueResultException
+     * @throws Exception
+     */
+    public function mainImages(Request $request)
+    {
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $this->getMainImageRepository()->saveImage($request->files->get('file'));
+            return $this->redirectToRoute('admin-main-images');
+        } else {
+            $params = $request->query->all();
+            if (isset($params['act'])) {
+                $id = $request->query->getInt('id');
+                switch ($params['act']) {
+                    case 'delete':
+                        $this->getMainImageRepository()->delete($id);
+                        break;
+                }
+            }
+        }
+
+        return $this->render('admin/main-images.html.twig', [
+            'images' => $this->getMainImageRepository()->findAll(),
         ]);
     }
 }

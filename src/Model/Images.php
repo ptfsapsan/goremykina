@@ -4,6 +4,9 @@
 namespace App\Model;
 
 
+use Exception;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class Images
 {
     public static function createGD($img, $dir, $name, $x, $y)
@@ -139,6 +142,20 @@ class Images
         fclose($f1);
 
         return $res;
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @throws Exception
+     */
+    public static function verifyImageFile(UploadedFile $file)
+    {
+        if ($file->getError() != 0) {
+            throw new Exception($file->getErrorMessage());
+        }
+        if (!Tools::isImage($file->getMimeType())) {
+            throw new Exception('Файл не является картинкой');
+        }
     }
 
 }

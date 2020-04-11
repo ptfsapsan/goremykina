@@ -4,20 +4,21 @@
 namespace App\Menu;
 
 
+use App\Entity\GalleryCategory;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 class MainMenu
 {
     private $factory;
-    private $security;
+    private $container;
 
-    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $security)
+    public function __construct(FactoryInterface $factory, ContainerInterface $container)
     {
         $this->factory = $factory;
-        $this->security = $security;
+        $this->container = $container;
     }
 
     /**
@@ -30,14 +31,30 @@ class MainMenu
         $menu->addChild('Обо мне', ['route' => 'about', 'attributes' => ['title' => 'Обо мне']]);
         $menu->addChild('Блог', ['route' => 'blog', 'attributes' => ['title' => 'Блог']]);
         $menu->addChild('Методические разработки', ['route' => 'methodical', 'attributes' => ['title' => 'Методические разработки']]);
-        $menu->addChild('Фотогалерея', ['route' => 'gallery', 'attributes' => ['title' => 'Статьи']])
-            ->addChild('111', ['route' => 'blog', 'attributes' => ['title' => 'Блог']]);
+        $gallery = $menu->addChild('Фотогалерея', ['route' => 'gallery', 'attributes' => ['title' => 'Фотогалерея']]);
+        $this->addGalleryChildren($gallery);
         $menu->addChild('Контакты', ['route' => 'contacts', 'attributes' => ['title' => 'Контакты']]);
-        if ($this->security->isGranted('ROLE_USER')) {
-            $menu->addChild('Выйти', ['route' => 'app_logout', 'attributes' => ['title' => 'Выйти']]);
-        }
         $menu->setChildrenAttribute('class', 'dd-menu');
 
+
+
         return $menu;
+    }
+
+    private function addGalleryChildren(ItemInterface &$gallery)
+    {
+        $galleryCategoryRepository = $this->container->get('doctrine')->getRepository(GalleryCategory::class);
+        $categories = $galleryCategoryRepository->findBy(['active' => 'yes']);
+        /** @var GalleryCategory $category */
+        foreach ($categories as $category) {
+            $gallery->addChild(
+                $category->getTitle(),
+                [
+                    'route' => 'gallery-category',
+                    'routeParameters' => ['id' => $category->getId()],
+                    'attributes' => ['title' => $category->getTitle()],
+                ]
+            );
+        }
     }
 }

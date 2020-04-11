@@ -9,6 +9,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @method GallerySubcategory|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,26 +17,11 @@ use Exception;
  * @method GallerySubcategory[]    findAll()
  * @method GallerySubcategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GallerySubcategoryRepository extends ServiceEntityRepository
+class GallerySubcategoryRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, GallerySubcategory::class);
-    }
-
-    /**
-     * @param int $id
-     * @return GallerySubcategory
-     * @throws Exception
-     */
-    public function getById(int $id)
-    {
-        $item = $this->findOneBy(['id' => $id]);
-        if (!$item) {
-            throw new Exception('Не найдена субкатегория');
-        }
-
-        return $item;
     }
 
     /**
@@ -50,34 +36,6 @@ class GallerySubcategoryRepository extends ServiceEntityRepository
         $item->setCategoryId($id);
         $item->setTitle($title);
         $item->setActive('yes');
-        $this->_em->persist($item);
-        $this->_em->flush();
-    }
-
-    /**
-     * @param int $id
-     * @throws ORMException
-     * @throws OptimisticLockException
-     * @throws Exception
-     */
-    public function delete(int $id)
-    {
-        $item = $this->getById($id);
-        $this->_em->remove($item);
-        $this->_em->flush();
-    }
-
-    /**
-     * @param int $id
-     * @throws ORMException
-     * @throws OptimisticLockException
-     * @throws Exception
-     */
-    public function changeActive(int $id)
-    {
-        $item = $this->getById($id);
-        $active = $item->getActive() == 'yes' ? 'no' : 'yes';
-        $item->setActive($active);
         $this->_em->persist($item);
         $this->_em->flush();
     }

@@ -11,14 +11,16 @@
 
 
 {% block content %}
-
     <div>
         Страница
-        <? $select = new Select('pages');
-   $select->setValueOptions($this->pages);
-        $select->setValue($this->page);
-        echo $this->formElement($select);
-        ?>
+        <select id="page-select" title="">
+            {% for page in pages %}
+                <option value="{{ page.link }}" {{ page.link == currentPage.link ? 'selected' : '' }}>
+                    {{ page.link }}
+                </option>
+            {% endfor %}
+        </select>
+
         <div>
             <div id="load_button"></div>
             <div id="queue"></div>
@@ -26,16 +28,13 @@
         <div id="files"></div>
         <div class="clear"></div>
 
-
         <p>
             Для того, чтобы вставить картинку нужно ввести код по следующему шаблону $$$имя_файла%%%.
             Например, $$$123456.png%%%.
         </p>
         <form method="post">
-            <input type="hidden" name="act" value="save_text">
-            <input type="hidden" name="link" value="<?=$this->page?>">
-            <textarea name="text" id="editor" cols="30" rows="10"><?=
-         $this->page_text?></textarea>
+            <input type="hidden" name="act" value="text">
+            <textarea name="text" id="editor" cols="30" rows="10" title="">{{ currentPage.text }}</textarea>
             <input type="submit" value="Сохранить">
         </form>
     </div>

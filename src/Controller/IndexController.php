@@ -10,12 +10,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class IndexController extends AbstractController
 {
+    use ControllerTrait;
     /**
-     * @Route("/index", name="index")
+     * @Route("/", name="index")
      */
     public function index()
     {
         return $this->render('index/index.html.twig', [
+            'page' => $this->getPageRepository()->findOneBy(['link' => 'index']),
         ]);
     }
 
@@ -70,6 +72,15 @@ class IndexController extends AbstractController
      * @Route("/gallery", name="gallery")
      */
     public function gallery()
+    {
+
+    }
+
+    /**
+     * @Route("/gallery/{id}", name="gallery-category")
+     * @param int $id
+     */
+    public function galleryCategory(int $id)
     {
 
     }
