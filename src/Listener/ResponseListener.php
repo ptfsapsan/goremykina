@@ -10,8 +10,7 @@ class ResponseListener
 {
     public function __invoke(ResponseEvent $event)
     {
-//        $response = $event->getResponse();
-//        $content = $response->;
+//        $response = $event->getResponse()->setPublic();
 //        var_dump($content);
     }
 }

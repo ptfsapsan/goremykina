@@ -17,13 +17,11 @@ class AjaxController extends AbstractController
 {
     use ControllerTrait;
     /**
-     * @Route("get-background-image")
-     * @param Request $request
+     * @Route("get-index-init")
      * @return JsonResponse
      */
-    public function getBackgroundImage(Request $request)
+    public function getIndexInit()
     {
-        $currentImage = $request->request->get('backgroundImage');
         $month = (int)date('m');
         $path = sprintf(
             'images/background/%s/*.*',
@@ -32,10 +30,13 @@ class AjaxController extends AbstractController
                 : ($month >= 9 && $month <= 11 ? 'autumn' : 'winter'))
         );
         $images = glob($path, GLOB_NOSORT);
-        $index = (int) array_search($currentImage, $images);
-        $index = $index >= count($images) - 1 ? 0 : $index + 1;
+        shuffle($images);
+        $mainImage = $this->getMainImage();
 
-        return $this->json(['image' => $images[$index]]);
+        return $this->json([
+            'backgroundImages' => $images,
+            'mainImage' => sprintf('/images/main-images/%s', $mainImage->getBig()),
+        ]);
     }
 
     /**

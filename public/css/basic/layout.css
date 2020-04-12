@@ -447,58 +447,8 @@ input.input-file {
   margin-left: 0;
 }
 #main_menu {
-  position: fixed;
-  width: 20%;
   background-color: #ededed;
   height: 100%;
-  overflow-y: auto;
-  z-index: 10;
-}
-#main_menu a #logo {
-  background: rgba(0, 0, 0, 0) url('/images/new-logo.png') no-repeat scroll 0 0;
-  background-size: 100% 100%;
-  height: 140px;
-  width: 180px;
-  margin: 20px auto 0;
-}
-#main_menu #top_title {
-  text-align: center;
-  color: #000;
-}
-#main_menu #top_title h2 {
-  display: none;
-}
-#main_menu #main-navigation {
-  margin-top: 30px;
-}
-#main_menu #main-navigation ul.dd-menu {
-  list-style-type: none;
-  margin: 0;
-  border-bottom: solid 1px #aaa;
-  cursor: pointer;
-}
-#main_menu #main-navigation ul.dd-menu li {
-  border-top: 1px solid #aaa;
-  transition: background-color 0.2s;
-}
-#main_menu #main-navigation ul.dd-menu li a {
-  padding: 10px 15px;
-  font-size: 18px;
-  color: #444;
-  display: block;
-}
-#main_menu #main-navigation ul.dd-menu li:hover {
-  background-color: #e2e2e2;
-}
-#main_menu #main-navigation ul.dd-menu li.current-menu-item a {
-  color: #fff;
-  text-shadow: #bcbcbc 2px 2px;
-  background-color: #1199dd;
-}
-#main_menu #copyright {
-  margin-top: 40px;
-  width: 100%;
-  text-align: center;
 }
 #content {
   margin: 0 auto;
@@ -506,6 +456,7 @@ input.input-file {
   background-color: rgba(255, 255, 255, 0.8);
   position: relative;
   top: 15px;
+  border-radius: 20px;
 }
 #content #main-image {
   width: 100%;

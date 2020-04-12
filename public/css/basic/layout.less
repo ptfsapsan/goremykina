@@ -16,12 +16,14 @@ body {
   font-family: Georgia, Helvetica, sans-serif;
   font-weight: 400;
 }
+
 #wrapper {
   width: 100%;
   height: 100%;
   position: fixed;
   background-size: cover;
 }
+
 #wrapper-hide {
   width: 100%;
   height: 100%;
@@ -89,7 +91,8 @@ input, select, textarea, button {
   font-weight: 400;
   margin: 0;
 }
-h1{
+
+h1 {
   margin: 0 0 18px;
 }
 
@@ -134,7 +137,8 @@ a, a:visited {
   text-decoration: none;
   color: @main_color;
 }
-a:hover{
+
+a:hover {
   text-decoration: underline;
 }
 
@@ -185,7 +189,8 @@ input, select, textarea {
   background: #fff;
   border: 1px solid #ddd;
   padding: 6px 10px;
-  &:focus{
+
+  &:focus {
     border: 1px solid #1199dd;
   }
 
@@ -213,21 +218,25 @@ input[type=image], input.input-image {
   padding: 15px;
   position: fixed;
   z-index: 10000;
+
   &.alert-success {
     background-color: #cffebf;
     color: #005826;
     border-color: #8fe573;
   }
+
   &.alert-info {
     background-color: #bfebfe;
     color: #000058;
     border-color: #73c0e6;
   }
+
   &.alert-danger {
     background-color: #fcfebf;
     color: #502800;
     border-color: #e5d973;
   }
+
   &.alert-error {
     background-color: #ffdfdf;
     color: #bf0000;
@@ -298,57 +307,8 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
 }
 
 #main_menu {
-  position: fixed;
-  width: 20%;
   background-color: @grey_color;
   height: 100%;
-  overflow-y: auto;
-  z-index: 10;
-  a #logo {
-    .background_file('new-logo.png');
-    height: 140px;
-    width: 180px;
-    margin: 20px auto 0;
-  }
-  #top_title {
-    text-align: center;
-    color: #000;
-    h2{
-      display: none;
-    }
-  }
-  #main-navigation {
-    margin-top: 30px;
-    ul.dd-menu {
-      list-style-type: none;
-      margin: 0;
-      border-bottom: solid 1px #aaa;
-      cursor: pointer;
-      li {
-        border-top: 1px solid #aaa;
-        transition: background-color 0.2s;
-        a {
-          padding: 10px 15px;
-          font-size: 18px;
-          color: #444;
-          display: block;
-        }
-        &:hover {
-          background-color: #e2e2e2;
-        }
-        &.current-menu-item a {
-          color: #fff;
-          text-shadow: #bcbcbc 2px 2px;
-          background-color: #1199dd;
-        }
-      }
-    }
-  }
-  #copyright {
-    margin-top: 40px;
-    width: 100%;
-    text-align: center;
-  }
 }
 
 #content {
@@ -357,42 +317,52 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
   background-color: rgba(255, 255, 255, 0.8);
   position: relative;
   top: 15px;
+  border-radius: 20px;
+
   #main-image {
     width: 100%;
     height: 200px;
   }
 }
 
-#home{
+#home {
   @w: 30px;
-  #left_col, #right_col{
+
+  #left_col, #right_col {
     background: url('@{img}vert-line.png') repeat-y scroll 0 0;
     width: @w;
     height: 100%;
     position: fixed;
     overflow-y: auto;
-    h3{
+
+    h3 {
       color: #fff;
       text-align: center;
       padding: 10px 3px;
     }
-    ul{
+
+    ul {
       margin-bottom: 30px;
+
       li {
         list-style: none;
         border-bottom: 1px solid #ddd;
-        &:first-child{
+
+        &:first-child {
           border-top: 1px solid #ddd;
         }
+
         a {
           color: #ddd;
           display: block;
           padding: 8px 15px;
           font-size: 15px;
-          &:hover{
+
+          &:hover {
             color: #fff;
           }
-          &.active{
+
+          &.active {
             color: #1199dd;
             background-color: #fff;
           }
@@ -400,35 +370,44 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
       }
     }
   }
-  #left_col{
+
+  #left_col {
     float: left;
   }
-  #right_col{
+
+  #right_col {
     right: 0;
   }
-  #wrap{
+
+  #wrap {
     padding: 20px (@w + 10);
-    h1{
+
+    h1 {
       text-align: center;
       font-size: 16px;
       background-color: @grey_color;
       padding: 10px 0;
     }
-    form{
+
+    form {
       font-size: 14px;
+
       input[type=text], input[type=url], input[type=email], input[type=number], textarea, select {
         width: ~"calc(100% - 20px)";
         margin-bottom: 12px;
+
         &:focus {
           .border();
           box-shadow: 0 0 5px 0 @main_color;
         }
       }
-      select{
+
+      select {
         width: 100%;
         //color: #888;
       }
-      input[type=checkbox]{
+
+      input[type=checkbox] {
         float: left;
         margin-right: 10px;
       }
@@ -436,9 +415,10 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
   }
 }
 
-#conf{
+#conf {
   text-align: center;
-  a{
+
+  a {
     color: #444;
   }
 }
@@ -446,6 +426,7 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
 
 #social {
   margin: 10px;
+
   a {
     height: 44px;
     width: 44px;
@@ -453,24 +434,29 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
     display: inline-block;
     margin: 2px;
   }
+
   #soc-vk {
     background-position: -58px 0;
   }
+
   #soc-ok {
     background-position: -232px 0;
   }
+
   #soc-fb {
     background-position: -290px 0;
   }
+
   #soc-in {
     background-position: -290px -174px;
   }
+
   #soc-mail {
 
   }
 }
 
-.button{
+.button {
   background-color: @main_color;
   .border();
   margin-top: 10px;
@@ -479,7 +465,8 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
   transition: background-color 0.4s;
   text-align: center;
   padding: 3px;
-  &:hover{
+
+  &:hover {
     background-color: @light_color;
   }
 }
@@ -496,6 +483,7 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
   top: 0;
   z-index: 10000;
 }
+
 #modal_win {
   border: 5px solid #fff;
   .border-radius(3px);
@@ -504,14 +492,16 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
   z-index: 10001;
 }
 
-#messages_fon{
+#messages_fon {
   display: none;
   background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
   z-index: 10000;
+
   .alert, #view_dip {
     z-index: 10001;
   }
+
   img {
     z-index: 10002;
     position: fixed;
@@ -519,9 +509,10 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
   }
 }
 
-.pagination{
+.pagination {
   text-align: center;
-  li{
+
+  li {
     display: inline-block;
     font-size: 16px;
     width: 20px;
@@ -529,35 +520,39 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
 }
 
 
-
 @media screen and(max-width: 768px) {
-  #main_menu{
+  #main_menu {
     height: 60px;
     width: ~"calc(100% - 10px)";
     border: 5px solid @main_color;
     overflow: hidden;
-    #copyright, #main-navigation{
+
+    #copyright, #main-navigation {
       display: none;
     }
-    a #logo{
+
+    a #logo {
       height: 50px;
       width: 60px;
       background-size: 100% 100%;
       margin: 6px;
       float: left;
     }
-    #top_title{
+
+    #top_title {
       width: ~"calc(100% - 150px)";
       float: left;
       height: 100%;
-      h2{
+
+      h2 {
         line-height: 1em;
         margin: 0;
         font-size: 20px;
         display: block;
       }
     }
-    #menu_butt{
+
+    #menu_butt {
       .background_file('icon-menu.svg', 30px, 30px);
       float: right;
       height: 30px;
@@ -565,7 +560,8 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
       width: 30px;
       cursor: pointer;
     }
-    #main-navigation{
+
+    #main-navigation {
       position: fixed;
       width: ~"calc(100% - 10px)";
       background-color: #ccc;
@@ -573,28 +569,34 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
       overflow-y: scroll;
       height: 100%;
       z-index: 100;
-      ul.dd-menu{
+
+      ul.dd-menu {
         overflow-y: scroll;
         height: 480px;
-        li{
+
+        li {
           height: 38px;
         }
       }
     }
   }
-  #content{
+
+  #content {
     margin: 0;
     padding: 60px 0;
+
     #home {
       #left_col, #right_col {
         width: 5px;
       }
-      #wrap{
+
+      #wrap {
         padding: 20px 15px;
       }
     }
   }
-  #social{
+
+  #social {
     display: none;
     background-color: #ededee;
     border-top: 5px solid @main_color;

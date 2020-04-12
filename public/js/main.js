@@ -1,25 +1,38 @@
 const T = {
-    backgroundImage: '',
+    bgImages: [],
+    bgCurrentIndex: 0,
+    bgNextIndex: 1,
+    bgCount: 0,
 
     init: function () {
+        $.post('/ajax/get-index-init', function (data) {
+            T.bgImages = data.backgroundImages;
+            $('#main-image').prop('src', data.mainImage);
+            setInterval(T.setBackground, 50000);
+            T.bgCount = data.backgroundImages.length;
+        }, 'json');
         T.setBackground();
-        setInterval(T.setBackground, 50000);
     },
 
     setBackground: function () {
-        $.post('/ajax/get-background-image', {backgroundImage: T.backgroundImage}, function (data) {
-            T.backgroundImage = data.image;
-            $('#wrapper-hide').hide().css('background-image', 'url("' + data.image + '")').fadeIn(1000, function () {
-                $('#wrapper').css('background-image', 'url("' + data.image + '")');
-                $('#wrapper-hide').hide();
-            });
-        }, 'json')
-    }
+        $('#wrapper-hide').hide().css('background-image', 'url("/' + T.bgImages[T.bgNextIndex] + '")')
+            .fadeIn(1000, function () {
+                    $('#wrapper').css('background-image', 'url("/' + T.bgImages[T.bgCurrentIndex] + '")');
+                    $('#wrapper-hide').hide();
+                }
+            );
+        T.bgCurrentIndex++;
+        T.bgNextIndex++;
+        if (T.bgCount === T.bgCurrentIndex) {
+            T.bgCurrentIndex = 0;
+        }
+        if (T.bgCount === T.bgNextIndex) {
+            T.bgNextIndex = 0;
+        }
+    },
 };
 
 
 $(function () {
     T.init();
-
-    $('body').css('backgroundColor', '#222');
 });

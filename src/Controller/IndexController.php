@@ -75,16 +75,26 @@ class IndexController extends AbstractController
      */
     public function gallery()
     {
+        $category = $this->getGalleryCategoryRepository()
+            ->findOneBy(['active' => 'yes'], ['id' => 'ASC']);
 
+        return $this->redirectToRoute('gallery-category', ['id' => $category->getId()]);
     }
 
     /**
      * @Route("/gallery/{id}", name="gallery-category")
      * @param int $id
+     * @return Response
      */
     public function galleryCategory(int $id)
     {
-
+        return $this->render('index/gallery.html.twig', [
+            'categories' => $this->getGalleryCategoryRepository()->findBy(['active' => 'yes']),
+            'subcategories' => $this->getGallerySubcategoryRepository()
+                ->findBy(['category_id' => $id, 'active' => 'yes']),
+            'images' => $this->getGalleryImageRepository()->getByCategoryId($id),
+            'mainImage' => $this->getMainImage(),
+        ]);
     }
 
     /**

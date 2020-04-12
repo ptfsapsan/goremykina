@@ -73,4 +73,15 @@ class GalleryImageRepository extends AbstractRepository
 
         return $name;
     }
+
+    public function getByCategoryId(int $id): array
+    {
+        $images = $this->findBy(['category_id' => $id]);
+        $result = [];
+        foreach ($images as $image) {
+            $result[$image->getSubcategoryId()][] = $image;
+        }
+
+        return $result;
+    }
 }
