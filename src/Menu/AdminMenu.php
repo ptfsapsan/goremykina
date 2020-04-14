@@ -23,7 +23,7 @@ class AdminMenu
     public function createMenu(): ItemInterface
     {
         $menu = $this->factory->createItem('root');
-        $menu->addChild('Страницы сайта', ['route' => 'admin-pages', 'attributes' => ['title' => 'Страницы сайта']]);
+        $menu->addChild('Страницы сайта', ['route' => 'admin', 'attributes' => ['title' => 'Страницы сайта']]);
         $menu->addChild('Картинка в шапке', ['route' => 'admin-main-images', 'attributes' => ['title' => 'Картинка в шапке']]);
 
         $gallery = $menu->addChild('Галерея', ['uri' => 'javascript:']);

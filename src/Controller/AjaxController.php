@@ -91,4 +91,9 @@ class AjaxController extends AbstractController
         return new Response();
     }
 
+    public function getPageFiles()
+    {
+        return new Response();
+    }
+
 }

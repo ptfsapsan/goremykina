@@ -6,12 +6,14 @@ const T = {
 
     init: function () {
         $.post('/ajax/get-index-init', function (data) {
-            T.bgImages = data.backgroundImages;
+            // показываем картинку в шапке
             $('#main-image').prop('src', data.mainImage);
-            setInterval(T.setBackground, 50000);
+            // картинки на подложке
+            T.bgImages = data.backgroundImages;
             T.bgCount = data.backgroundImages.length;
+            T.setBackground();
+            setInterval(T.setBackground, 30000);
         }, 'json');
-        T.setBackground();
     },
 
     setBackground: function () {

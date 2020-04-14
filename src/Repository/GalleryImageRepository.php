@@ -79,6 +79,9 @@ class GalleryImageRepository extends AbstractRepository
         $images = $this->findBy(['category_id' => $id]);
         $result = [];
         foreach ($images as $image) {
+            if (empty($result[$image->getSubcategoryId()])) {
+                $result[$image->getSubcategoryId()] = [];
+            }
             $result[$image->getSubcategoryId()][] = $image;
         }
 

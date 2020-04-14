@@ -59,7 +59,10 @@ class IndexController extends AbstractController
      */
     public function about()
     {
-
+        return $this->render('index/index.html.twig', [
+            'page' => $this->getPageRepository()->findOneBy(['link' => 'about']),
+            'mainImage' => $this->getMainImage(),
+        ]);
     }
 
     /**

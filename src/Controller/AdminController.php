@@ -21,7 +21,7 @@ class AdminController extends AbstractController
     use ControllerTrait;
 
     /**
-     * @Route("pages/{link}", name="admin-pages")
+     * @Route("pages/{link}", name="admin")
      * @param Request $request
      * @param string $link
      * @return Response
@@ -36,7 +36,7 @@ class AdminController extends AbstractController
                     $this->getPageRepository()->saveText($link, $params['text']);
                     break;
             }
-            return $this->redirectToRoute('admin-pages', ['link' => $link]);
+            return $this->redirectToRoute('admin', ['link' => $link]);
         }
 
         $pages = $this->getPageRepository()->findAll();
@@ -132,7 +132,7 @@ class AdminController extends AbstractController
         }
 
         return $this->render('admin/gallery-subcategories.html.twig', [
-            'subcategories' => $this->getGallerySubcategoryRepository()->findAll(),
+            'subcategories' => $this->getGallerySubcategoryRepository()->findBy(['category_id' => $id]),
             'category' => $this->getGalleryCategoryRepository()->getById($id),
         ]);
     }
@@ -204,7 +204,9 @@ class AdminController extends AbstractController
     public function mainImages(Request $request)
     {
         if ($request->isMethod(Request::METHOD_POST)) {
-            $this->getMainImageRepository()->saveImage($request->files->get('file'));
+            if (!empty($request->files->get('file'))) {
+                $this->getMainImageRepository()->saveImage($request->files->get('file'));
+            }
             return $this->redirectToRoute('admin-main-images');
         } else {
             $params = $request->query->all();

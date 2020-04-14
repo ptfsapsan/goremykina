@@ -1,5 +1,6 @@
-$(function () {
-    const SLIDE_SHOW_SPEED = 1;
+(function () {
+    const SLIDE_SHOW_SPEED = 500;
+    const SLIDE_WIDTH = 600;
 
     $('.bxSlider').bxSlider({
         keyboardEnabled: false,
@@ -8,14 +9,19 @@ $(function () {
         pager: false,
         controls: true,
         speed: SLIDE_SHOW_SPEED,
-        // // startSlide: background.$currentPreviewImage || 0,
-        // // pause: calculateSliderPause(background.options),
-        // // wrapperClass: CLASS_SLIDER_WRAP,
-        // auto: false,
-        // onSlideNext: function onSlideNext(slide, oldIndex, activeIndex) {
-        //     // triggerCurrentSlide($container, activeIndex);
-        //     return true;
-        // },
+        slideWidth: SLIDE_WIDTH,
+        autoControls: true,
+        infiniteLoop: false,
+        hideControlOnEnd: true,
+        adaptiveHeight: true,
+        auto: true,
+        onSlideNext: function onSlideNext(slide, oldIndex, activeIndex) {
+            // triggerCurrentSlide($container, activeIndex);
+            console.log(slide);
+            console.log(oldIndex);
+            console.log(activeIndex);
+            return true;
+        },
         // onSliderResize: function onSliderResize() {
         //     // fixBxSliderContainerHeight(slider);
         // },
@@ -26,4 +32,4 @@ $(function () {
         //     // }
         // }
     });
-});
+})();

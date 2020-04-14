@@ -16,11 +16,21 @@
                 <ul class="bxSlider">
                     {% set categoryId = subcategory.getCategoryId() %}
                     {% set subcategoryId = subcategory.id %}
-                    {% for image in images[subcategory.id] %}
-                        <li><img src="{{ asset('images/gallery/'~categoryId~'/'~subcategoryId~'/'~image.big) }}" alt="">
+                    {% set dir = 'images/gallery/'~categoryId~'/'~subcategoryId~'/' %}
+                    {% for image in images[subcategoryId] %}
+                        <li><img src="{{ asset(dir~image.big) }}" alt="">
                         </li>
                     {% endfor %}
                 </ul>
+                <div id="bx-pager">
+                    {% set n = 0 %}
+                    {% for image in images[subcategoryId] %}
+                        <a data-slide-index="{{ n }}" href="">
+                            <img src="{{ asset(dir~image.thumb) }}"  alt=""/>
+                        </a>
+                        {% set n = n + 1 %}
+                    {% endfor %}
+                </div>
             {% else %}
                 <p>Фотографий в этой субкатегории пока нет</p>
             {% endif %}
