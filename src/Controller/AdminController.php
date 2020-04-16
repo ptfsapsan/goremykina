@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\PageImageRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -18,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminController extends AbstractController
 {
-    use ControllerTrait;
+    use RepositoryTrait;
 
     /**
      * @Route("pages/{link}", name="admin")
@@ -45,6 +46,7 @@ class AdminController extends AbstractController
         return $this->render('admin/pages.html.twig', [
             'pages' => $pages,
             'currentPage' => $page,
+            'imagePath' => PageImageRepository::PATH,
         ]);
     }
 

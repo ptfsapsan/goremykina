@@ -34,16 +34,21 @@
       a:hover {
         background: #D43737;
       }
+      &.current_ancestor {
+        color: #d7d6d6;
+        text-decoration: underline;
+        font-weight: bold;
+      }
 
       &.current-menu-item a {
-        color: @main_color;
+        color: #d7d6d6;
         text-decoration: underline;
         font-weight: bold;
       }
 
       & > ul {
         position: absolute;
-        //top: 25px;
+        z-index: 1;
         display: none;
       }
 

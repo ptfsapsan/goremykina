@@ -54,26 +54,6 @@ class GalleryImageRepository extends AbstractRepository
         $this->_em->flush();
     }
 
-    /**
-     * @param string $ext
-     * @return string
-     * @throws NonUniqueResultException
-     */
-    private function getImageFileName(string $ext)
-    {
-        $name = sprintf('%s.%s', Tools::generateDigitCode(6), $ext);
-        $query = $this->createQueryBuilder('gi')
-            ->select('gi')
-            ->where('gi.big = :name OR gi.thumb = :name')
-            ->setParameter('name', $name);
-        $item = $query->getQuery()->getOneOrNullResult();
-        if ($item) {
-            return $this->getImageFileName($ext);
-        }
-
-        return $name;
-    }
-
     public function getByCategoryId(int $id): array
     {
         $images = $this->findBy(['category_id' => $id]);

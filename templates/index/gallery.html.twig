@@ -2,6 +2,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <link rel="stylesheet" href="{{ asset('css/index/gallery.css') }}">
 {% endblock %}
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
@@ -10,31 +11,45 @@
 
 {% block content %}
     <div>
-        {% for subcategory in subcategories %}
-            <h3>{{ subcategory.title }}</h3>
-            {% if images[subcategory.id]|default(false) %}
-                <ul class="bxSlider">
-                    {% set categoryId = subcategory.getCategoryId() %}
-                    {% set subcategoryId = subcategory.id %}
-                    {% set dir = 'images/gallery/'~categoryId~'/'~subcategoryId~'/' %}
-                    {% for image in images[subcategoryId] %}
-                        <li><img src="{{ asset(dir~image.big) }}" alt="">
-                        </li>
-                    {% endfor %}
-                </ul>
-                <div id="bx-pager">
-                    {% set n = 0 %}
-                    {% for image in images[subcategoryId] %}
-                        <a data-slide-index="{{ n }}" href="">
-                            <img src="{{ asset(dir~image.thumb) }}"  alt=""/>
+        <div>
+            <ul id="category-buttons">
+                {% for category in categories %}
+                    <li {{ app.request.get('id') == category.id ? 'class="active-cat"' : '' }}>
+                        <a href="{{ path('gallery-category', {id: category.id}) }}">
+                            {{ category.title }}
                         </a>
-                        {% set n = n + 1 %}
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>Фотографий в этой субкатегории пока нет</p>
-            {% endif %}
-        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div>
+            {% for subcategory in subcategories %}
+                <h3>{{ subcategory.title }}</h3>
+                {% if images[subcategory.id]|default(false) %}
+                    <ul class="bxSlider">
+                        {% set categoryId = subcategory.getCategoryId() %}
+                        {% set subcategoryId = subcategory.id %}
+                        {% set dir = 'images/gallery/'~categoryId~'/'~subcategoryId~'/' %}
+                        {% for image in images[subcategoryId] %}
+                            <li><img src="{{ asset(dir~image.big) }}" alt="">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div id="bx-pager">
+                        {% set n = 0 %}
+                        {% for image in images[subcategoryId] %}
+                            <a data-slide-index="{{ n }}" href="">
+                                <img src="{{ asset(dir~image.thumb) }}" alt=""/>
+                            </a>
+                            {% set n = n + 1 %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>Фотографий в этой субкатегории пока нет</p>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class AjaxController extends AbstractController
 {
-    use ControllerTrait;
+    use RepositoryTrait;
     /**
      * @Route("get-index-init")
      * @return JsonResponse
@@ -91,9 +93,45 @@ class AjaxController extends AbstractController
         return new Response();
     }
 
-    public function getPageFiles()
+    /**
+     * @Route("get-page-images", name="get-page-images")
+     * @param Request $request
+     * @return Response
+     */
+    public function getPageImages(Request $request)
     {
+        $page = $request->request->getAlpha('page');
+
+        return $this->json($this->getPageImageRepository()->findBy(['page' => $page]));
+    }
+
+    /**
+     * @Route("upload-page-image", name="upload-page-image")
+     * @param Request $request
+     * @return Response
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function uploadPageImage(Request $request)
+    {
+        $file = $request->files->get('file');
+        $page = $request->request->getAlpha('page');
+        $this->getPageImageRepository()->uploadPageImage($page, $file);
+
         return new Response();
     }
 
+    /**
+     * @Route("delete-page-image")
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     */
+    public function deletePageImage(Request $request)
+    {
+        $id = $request->request->getInt('id');
+        $this->getPageImageRepository()->delete($id);
+
+        return new Response();
+    }
 }

@@ -8,9 +8,7 @@ use App\Model\Tools;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use Doctrine\Persistence\ManagerRegistry;
 use Exception;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -53,28 +51,6 @@ class MainImageRepository extends AbstractRepository
         $this->_em->persist($item);
         $this->_em->flush();
     }
-
-
-    /**
-     * @param string $ext
-     * @return string
-     * @throws NonUniqueResultException
-     */
-    private function getImageFileName(string $ext)
-    {
-        $name = sprintf('%s.%s', Tools::generateDigitCode(6), $ext);
-        $query = $this->createQueryBuilder('gi')
-            ->select('gi')
-            ->where('gi.big = :name OR gi.thumb = :name')
-            ->setParameter('name', $name);
-        $item = $query->getQuery()->getOneOrNullResult();
-        if ($item) {
-            return $this->getImageFileName($ext);
-        }
-
-        return $name;
-    }
-
 
     /**
      * @param int $id

@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class IndexController extends AbstractController
 {
-    use ControllerTrait;
+    use RepositoryTrait;
     /**
      * @Route("/", name="index")
      */
@@ -105,7 +105,7 @@ class IndexController extends AbstractController
      */
     public function contacts()
     {
-
+        return new Response();
     }
 
     /**
@@ -113,6 +113,15 @@ class IndexController extends AbstractController
      */
     public function methodical()
     {
+        return new Response();
+    }
 
+    /**
+     * @Route("/game-room", name="game-room")
+     */
+    public function gameRoom()
+    {
+
+        return new Response();
     }
 }

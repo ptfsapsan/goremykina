@@ -28,6 +28,13 @@ class PageRepository extends AbstractRepository
         if (empty($item)) {
             throw new Exception('Не найдена страница');
         }
+        $text = str_replace('$$$',
+            sprintf('<img src="%s%s/', PageImageRepository::PATH, $link),
+            $text);
+        $text = str_replace('%%%', '" alt="" title="">',
+            $text);
+
+
         $item->setText($text);
         $this->_em->persist($item);
         $this->_em->flush();

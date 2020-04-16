@@ -33,6 +33,7 @@ class MainMenu
         $menu->addChild('Методические разработки', ['route' => 'methodical', 'attributes' => ['title' => 'Методические разработки']]);
         $gallery = $menu->addChild('Фотогалерея', ['route' => 'gallery', 'attributes' => ['title' => 'Фотогалерея']]);
         $this->addGalleryChildren($gallery);
+        $menu->addChild('Игровая', ['route' => 'game-room', 'attributes' => ['title' => 'Игровая']]);
         $menu->addChild('Контакты', ['route' => 'contacts', 'attributes' => ['title' => 'Контакты']]);
         $menu->setChildrenAttribute('class', 'dd-menu');
 

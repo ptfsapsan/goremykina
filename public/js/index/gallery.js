@@ -10,11 +10,11 @@
         controls: true,
         speed: SLIDE_SHOW_SPEED,
         slideWidth: SLIDE_WIDTH,
-        autoControls: true,
+        autoControls: false,
         infiniteLoop: false,
         hideControlOnEnd: true,
         adaptiveHeight: true,
-        auto: true,
+        auto: false,
         onSlideNext: function onSlideNext(slide, oldIndex, activeIndex) {
             // triggerCurrentSlide($container, activeIndex);
             console.log(slide);

@@ -4,7 +4,9 @@
 namespace App\Repository;
 
 
+use App\Model\Tools;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -61,6 +63,26 @@ class AbstractRepository extends ServiceEntityRepository
         $item->setActive($active);
         $this->_em->persist($item);
         $this->_em->flush();
+    }
+
+    /**
+     * @param string $ext
+     * @return string
+     * @throws NonUniqueResultException
+     */
+    protected function getImageFileName(string $ext)
+    {
+        $name = sprintf('%s.%s', Tools::generateDigitCode(6), $ext);
+        $query = $this->createQueryBuilder('gi')
+            ->select('gi')
+            ->where('gi.big = :name OR gi.thumb = :name')
+            ->setParameter('name', $name);
+        $item = $query->getQuery()->getOneOrNullResult();
+        if ($item) {
+            return $this->getImageFileName($ext);
+        }
+
+        return $name;
     }
 
 }
