@@ -7,14 +7,20 @@ namespace App\Controller;
 use App\Entity\GalleryCategory;
 use App\Entity\GalleryImage;
 use App\Entity\GallerySubcategory;
+use App\Entity\GameRoomCategory;
+use App\Entity\GameRoomImage;
 use App\Entity\MainImage;
+use App\Entity\Message;
 use App\Entity\Page;
 use App\Entity\PageImage;
 use App\Entity\MethodicalDoc;
 use App\Repository\GalleryCategoryRepository;
 use App\Repository\GalleryImageRepository;
 use App\Repository\GallerySubcategoryRepository;
+use App\Repository\GameRoomCategoryRepository;
+use App\Repository\GameRoomImageRepository;
 use App\Repository\MainImageRepository;
+use App\Repository\MessageRepository;
 use App\Repository\PageImageRepository;
 use App\Repository\PageRepository;
 use App\Repository\MethodicalDocRepository;
@@ -41,6 +47,12 @@ trait RepositoryTrait
     private $pageImageRepository;
     /** @var MethodicalDocRepository */
     private $methodicalDocRepository;
+    /** @var GameRoomCategoryRepository */
+    private $gameRoomCategoryRepository;
+    /** @var GameRoomImageRepository */
+    private $gameRoomImageRepository;
+    /** @var MessageRepository */
+    private $messageRepository;
 
 
     /**
@@ -146,6 +158,42 @@ trait RepositoryTrait
         }
 
         return $this->methodicalDocRepository;
+    }
+
+    /**
+     * @return GameRoomCategoryRepository
+     */
+    protected function getGameRoomCategoryRepository()
+    {
+        if (empty($this->gameRoomCategoryRepository)) {
+            $this->gameRoomCategoryRepository = $this->doctrine->getRepository(GameRoomCategory::class);
+        }
+
+        return $this->gameRoomCategoryRepository;
+    }
+
+    /**
+     * @return GameRoomImageRepository
+     */
+    protected function getGameRoomImageRepository()
+    {
+        if (empty($this->gameRoomImageRepository)) {
+            $this->gameRoomImageRepository = $this->doctrine->getRepository(GameRoomImage::class);
+        }
+
+        return $this->gameRoomImageRepository;
+    }
+
+    /**
+     * @return MessageRepository
+     */
+    protected function getMessageRepository()
+    {
+        if (empty($this->messageRepository)) {
+            $this->messageRepository = $this->doctrine->getRepository(Message::class);
+        }
+
+        return $this->messageRepository;
     }
 
 }

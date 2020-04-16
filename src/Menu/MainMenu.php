@@ -5,6 +5,7 @@ namespace App\Menu;
 
 
 use App\Entity\GalleryCategory;
+use App\Entity\GameRoomCategory;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,12 +14,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class MainMenu
 {
     private $factory;
-    private $container;
+    private $doctrine;
 
     public function __construct(FactoryInterface $factory, ContainerInterface $container)
     {
         $this->factory = $factory;
-        $this->container = $container;
+        $this->doctrine = $container->get('doctrine');
     }
 
     /**
@@ -33,7 +34,8 @@ class MainMenu
         $menu->addChild('Методические разработки', ['route' => 'methodical', 'attributes' => ['title' => 'Методические разработки']]);
         $gallery = $menu->addChild('Фотогалерея', ['route' => 'gallery', 'attributes' => ['title' => 'Фотогалерея']]);
         $this->addGalleryChildren($gallery);
-        $menu->addChild('Игровая', ['route' => 'game-room', 'attributes' => ['title' => 'Игровая']]);
+        $gameRoom = $menu->addChild('Игровая', ['route' => 'game-room', 'attributes' => ['title' => 'Игровая']]);
+        $this->addGameRoomCategories($gameRoom);
         $menu->addChild('Контакты', ['route' => 'contacts', 'attributes' => ['title' => 'Контакты']]);
         $menu->setChildrenAttribute('class', 'dd-menu');
 
@@ -44,7 +46,7 @@ class MainMenu
 
     private function addGalleryChildren(ItemInterface &$gallery)
     {
-        $galleryCategoryRepository = $this->container->get('doctrine')->getRepository(GalleryCategory::class);
+        $galleryCategoryRepository = $this->doctrine->getRepository(GalleryCategory::class);
         $categories = $galleryCategoryRepository->findBy(['active' => 'yes']);
         /** @var GalleryCategory $category */
         foreach ($categories as $category) {
@@ -52,6 +54,23 @@ class MainMenu
                 $category->getTitle(),
                 [
                     'route' => 'gallery-category',
+                    'routeParameters' => ['id' => $category->getId()],
+                    'attributes' => ['title' => $category->getTitle()],
+                ]
+            );
+        }
+    }
+
+    private function addGameRoomCategories(ItemInterface &$gameRoom)
+    {
+        $gameRoomCategoryRepository = $this->doctrine->getRepository(GameRoomCategory::class);
+        $categories = $gameRoomCategoryRepository->findBy(['active' => 'yes']);
+        /** @var GameRoomCategory $category */
+        foreach ($categories as $category) {
+            $gameRoom->addChild(
+                $category->getTitle(),
+                [
+                    'route' => 'game-room-category',
                     'routeParameters' => ['id' => $category->getId()],
                     'attributes' => ['title' => $category->getTitle()],
                 ]

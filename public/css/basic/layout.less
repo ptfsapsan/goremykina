@@ -1,4 +1,5 @@
 @import 'vars';
+@import "alert";
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
   border: 0;
@@ -29,6 +30,10 @@ body {
   height: 100%;
   position: fixed;
   background-size: cover;
+}
+
+#wrap {
+  padding: 20px 15px;
 }
 
 ol, ul {
@@ -173,12 +178,6 @@ tr.odd td {
   margin: 0 0 9px;
 }
 
-legend {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 0 18px;
-}
-
 label {
   display: block;
   font-size: 11px;
@@ -199,7 +198,7 @@ input, select, textarea {
 input[type=image], input.input-image {
   border: none;
   .border-radius(0);
-  behavior: url('../js/misc/PIE.htc');
+  behavior: url('../../js/misc/misc/PIE.htc');
   background: none;
   padding: 0;
 }
@@ -208,40 +207,6 @@ input[type=image], input.input-image {
   position: relative;
   width: 954px;
   margin: 0 auto;
-}
-
-.alert {
-  border: 1px solid;
-  .border-radius(12px);
-  behavior: url('../js/misc/PIE.htc');
-  margin: 0 0 18px;
-  padding: 15px;
-  position: fixed;
-  z-index: 10000;
-
-  &.alert-success {
-    background-color: #cffebf;
-    color: #005826;
-    border-color: #8fe573;
-  }
-
-  &.alert-info {
-    background-color: #bfebfe;
-    color: #000058;
-    border-color: #73c0e6;
-  }
-
-  &.alert-danger {
-    background-color: #fcfebf;
-    color: #502800;
-    border-color: #e5d973;
-  }
-
-  &.alert-error {
-    background-color: #ffdfdf;
-    color: #bf0000;
-    border-color: #ffa5a5;
-  }
 }
 
 .c-1, .c-2, .c-3, .c-4, .c-5, .c-6, .c-7, .c-8, .c-9, .c-10, .c-11, .c-12 {
@@ -328,134 +293,11 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
   }
 }
 
-#home {
-  @w: 30px;
-
-  #left_col, #right_col {
-    background: url('@{img}vert-line.png') repeat-y scroll 0 0;
-    width: @w;
-    height: 100%;
-    position: fixed;
-    overflow-y: auto;
-
-    h3 {
-      color: #fff;
-      text-align: center;
-      padding: 10px 3px;
-    }
-
-    ul {
-      margin-bottom: 30px;
-
-      li {
-        list-style: none;
-        border-bottom: 1px solid #ddd;
-
-        &:first-child {
-          border-top: 1px solid #ddd;
-        }
-
-        a {
-          color: #ddd;
-          display: block;
-          padding: 8px 15px;
-          font-size: 15px;
-
-          &:hover {
-            color: #fff;
-          }
-
-          &.active {
-            color: #1199dd;
-            background-color: #fff;
-          }
-        }
-      }
-    }
-  }
-
-  #left_col {
-    float: left;
-  }
-
-  #right_col {
-    right: 0;
-  }
-
-  #wrap {
-    padding: 20px (@w + 10);
-    td {
-      vertical-align: middle;
-    }
-    h1 {
-      text-align: center;
-      font-size: 16px;
-      padding: 10px 0;
-    }
-
-    form {
-      font-size: 14px;
-
-      input[type=text], input[type=url], input[type=email], input[type=number], textarea, select {
-        width: ~"calc(100% - 20px)";
-        margin-bottom: 12px;
-
-        &:focus {
-          .border();
-          box-shadow: 0 0 5px 0 @main_color;
-        }
-      }
-
-      select {
-        width: 100%;
-        //color: #888;
-      }
-
-      input[type=checkbox] {
-        float: left;
-        margin-right: 10px;
-      }
-    }
-  }
-}
-
 #conf {
   text-align: center;
 
   a {
     color: #444;
-  }
-}
-
-#social {
-  margin: 10px;
-
-  a {
-    height: 44px;
-    width: 44px;
-    background: rgba(0, 0, 0, 0) url('@{img}icons/social.png') no-repeat scroll;
-    display: inline-block;
-    margin: 2px;
-  }
-
-  #soc-vk {
-    background-position: -58px 0;
-  }
-
-  #soc-ok {
-    background-position: -232px 0;
-  }
-
-  #soc-fb {
-    background-position: -290px 0;
-  }
-
-  #soc-in {
-    background-position: -290px -174px;
-  }
-
-  #soc-mail {
-
   }
 }
 
@@ -588,14 +430,8 @@ input[type=checkbox], input[type=radio], input[type=image], input[type=submit], 
     margin: 0;
     padding: 60px 0;
 
-    #home {
-      #left_col, #right_col {
-        width: 5px;
-      }
-
-      #wrap {
-        padding: 20px 15px;
-      }
+    #wrap {
+      padding: 20px 15px;
     }
   }
 

@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class MainImageRepository extends AbstractRepository
 {
     protected $entity = MainImage::class;
+    public const PATH = '/images/main-images/';
 
     /**
      * @param UploadedFile $file
@@ -32,8 +33,9 @@ class MainImageRepository extends AbstractRepository
     {
         Tools::verifyImageFile($file);
         $dir = sprintf(
-            '%s/public/images/main-images/',
-            $this->projectDir
+            '%s/public%s',
+            $this->projectDir,
+            self::PATH
         );
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);

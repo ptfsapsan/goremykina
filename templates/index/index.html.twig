@@ -2,12 +2,8 @@
 {% block title %} Главная{% endblock %}
 
 {% block content %}
-    <div id="home">
-        <div id="wrap">
-            <div id="page-content">
-                {{ page.text|raw }}
-            </div>
-        </div>
+    <div id="page-content">
+        {{ page.text|raw }}
     </div>
 {% endblock %}
 

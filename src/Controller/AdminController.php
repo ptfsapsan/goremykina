@@ -261,4 +261,96 @@ class AdminController extends AbstractController
             'dir' => $this->getMethodicalDocRepository()::PATH,
         ]);
     }
+
+    /**
+     * @Route("game-room-categories", name="admin-game-room-categories")
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     */
+    public function gameRoomCategories(Request $request)
+    {
+        if ($request->isMethod(Request::METHOD_POST)) {
+            if (!empty($request->files->get('file'))) {
+                $file = $request->files->get('file');
+                $title = $request->request->get('title');
+                $this->getGameRoomCategoryRepository()->addCategory($file, $title);
+            }
+            return $this->redirectToRoute('admin-game-room-categories');
+        } else {
+            if (!empty($request->query->getAlpha('act'))) {
+                $id = $request->query->getInt('id');
+                switch ($request->query->getAlpha('act')) {
+                    case 'delete':
+                        $this->getGameRoomCategoryRepository()->deleteCategory($id);
+                        break;
+                    case 'active':
+                        $this->getGameRoomCategoryRepository()->changeActive($id);
+                        break;
+                    case 'title':
+                        $this->getGameRoomCategoryRepository()
+                            ->changeTitle($id, $request->query->get('title'));
+                        break;
+                }
+                return $this->redirectToRoute('admin-game-room-categories');
+            }
+        }
+
+        return $this->render('admin/game-room-categories.html.twig', [
+            'categories' => $this->getGameRoomCategoryRepository()->findAll(),
+            'dir' => $this->getGameRoomCategoryRepository()::PATH,
+        ]);
+    }
+
+    /**
+     * @Route("game-room-category/{id}", name="admin-game-room-category")
+     * @param int $id
+     * @param Request $request
+     * @return Response
+     * @throws Exception
+     */
+    public function gameRoomCategory(int $id, Request $request)
+    {
+        if ($request->isMethod(Request::METHOD_POST)) {
+            if (!empty($request->files->get('file'))) {
+                $file = $request->files->get('file');
+                $this->getGameRoomImageRepository()->addImage($file, $id);
+            }
+            return $this->redirectToRoute('admin-game-room-category', ['id' => $id]);
+        } else {
+            if (!empty($request->query->getAlpha('act'))) {
+                $id = $request->query->getInt('id');
+                switch ($request->query->getAlpha('act')) {
+                    case 'delete':
+                        $this->getGameRoomImageRepository()->deleteImage($id);
+                        break;
+                }
+                return $this->redirectToRoute('admin-game-room-category', ['id' => $id]);
+            }
+        }
+
+        return $this->render('admin/game-room-category.html.twig', [
+            'images' => $this->getGameRoomImageRepository()->findBy(['category_id' => $id]),
+            'dir' => $this->getGameRoomImageRepository()::PATH,
+        ]);
+    }
+
+    /**
+     * @Route("messages", name="admin-messages")
+     * @param Request $request
+     * @return Response
+     */
+    public function messages(Request $request)
+    {
+        $onPage = 10;
+        $page = $request->query->getInt('page', 1);
+        $data = $this->getMessageRepository()->getWithPagination($onPage, $page);
+
+        return $this->render('admin/messages.html.twig', [
+            'messages' => $data['items'],
+            'count' => $data['count'],
+            'page' => $page,
+            'onPage' => $onPage,
+        ]);
+    }
 }

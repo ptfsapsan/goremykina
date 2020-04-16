@@ -1,0 +1,33 @@
+.alert {
+  border: 1px solid;
+  .border-radius(12px);
+  behavior: url('../../js/misc/misc/PIE.htc');
+  margin: 0 0 18px;
+  padding: 15px;
+  position: fixed;
+  z-index: 10000;
+
+  &.alert-success {
+    background-color: #cffebf;
+    color: #005826;
+    border-color: #8fe573;
+  }
+
+  &.alert-info {
+    background-color: #bfebfe;
+    color: #000058;
+    border-color: #73c0e6;
+  }
+
+  &.alert-danger {
+    background-color: #fcfebf;
+    color: #502800;
+    border-color: #e5d973;
+  }
+
+  &.alert-error {
+    background-color: #ffdfdf;
+    color: #bf0000;
+    border-color: #ffa5a5;
+  }
+}

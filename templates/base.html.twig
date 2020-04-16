@@ -18,7 +18,9 @@
     <div id="main_menu">
         {{ knp_menu_render('main_menu') }}
     </div>
-    {% block content %}{% endblock %}
+    <div id="wrap">
+        {% block content %}{% endblock %}
+    </div>
 </div>
 
 <script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>

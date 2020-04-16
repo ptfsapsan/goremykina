@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div>
+        {% for category in categories %}
+            <div class="game-room-cat">
+                <a href="{{ path('game-room-category', {'id': category.id}) }}">
+                    <img src="{{ asset(iconDir~category.icon) }}" alt="{{ category.title }}">
+                    <span>{{ category.title }}</span>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

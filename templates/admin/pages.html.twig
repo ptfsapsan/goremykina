@@ -14,15 +14,6 @@
     <input type="hidden" id="page" value="{{ currentPage.link }}">
     <input type="hidden" id="imagePath" value="{{ imagePath }}">
     <div>
-        Страница
-        <select id="page-select" title="">
-            {% for page in pages %}
-                <option value="{{ page.link }}" {{ page.link == currentPage.link ? 'selected' : '' }}>
-                    {{ page.link }}
-                </option>
-            {% endfor %}
-        </select>
-
         <div>
             <div id="load_button"></div>
             <div id="queue"></div>

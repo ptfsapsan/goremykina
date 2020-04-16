@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div>
+        <h3>{{ category.title }}</h3>
+        <div>
+            {% for image in images %}
+                <div>
+                    <a href="">
+                        <img src="{{ asset(imageDir~image.thumb) }}" alt="">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

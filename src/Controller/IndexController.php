@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -11,6 +12,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class IndexController extends AbstractController
 {
     use RepositoryTrait;
+
     /**
      * @Route("/", name="index")
      */
@@ -70,7 +72,10 @@ class IndexController extends AbstractController
      */
     public function blog()
     {
+        return $this->render('index/blog.html.twig', [
+            'mainImage' => $this->getMainImage(),
 
+        ]);
     }
 
     /**
@@ -101,14 +106,6 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/contacts", name="contacts")
-     */
-    public function contacts()
-    {
-        return new Response();
-    }
-
-    /**
      * @Route("/methodical", name="methodical")
      */
     public function methodical()
@@ -125,7 +122,44 @@ class IndexController extends AbstractController
      */
     public function gameRoom()
     {
-
-        return new Response();
+        return $this->render('index/game-room.html.twig', [
+            'categories' => $this->getGameRoomCategoryRepository()->findBy(['active' => 'yes']),
+            'iconDir' => $this->getGameRoomCategoryRepository()::PATH,
+            'mainImage' => $this->getMainImage(),
+        ]);
     }
+
+    /**
+     * @Route("/game-room-category/{id}", name="game-room-category")
+     * @param int $id
+     * @return Response
+     */
+    public function gameRoomCategory(int $id)
+    {
+        return $this->render('index/game-room-category.html.twig', [
+            'category' => $this->getGameRoomCategoryRepository()->findOneBy(['id' => $id]),
+            'imageDir' => $this->getGameRoomImageRepository()::PATH,
+            'images' => $this->getGameRoomImageRepository()->findBy(['category_id' => $id]),
+            'mainImage' => $this->getMainImage(),
+        ]);
+    }
+
+    /**
+     * @Route("/contacts", name="contacts")
+     * @param Request $request
+     * @return Response
+     */
+    public function contacts(Request $request)
+    {
+        if ($request->isMethod(Request::METHOD_POST)) {
+            $params = $request->request->all();
+            $this->getMessageRepository()->add($params);
+            return $this->redirectToRoute('contacts');
+        }
+
+        return $this->render('index/contacts.html.twig', [
+            'mainImage' => $this->getMainImage(),
+        ]);
+    }
+
 }

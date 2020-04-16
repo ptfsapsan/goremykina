@@ -23,7 +23,9 @@ class AdminMenu
     public function createMenu(): ItemInterface
     {
         $menu = $this->factory->createItem('root');
-        $menu->addChild('Страницы сайта', ['route' => 'admin', 'attributes' => ['title' => 'Страницы сайта']]);
+        $menu->addChild('Главная страница', ['route' => 'admin', 'attributes' => ['title' => 'Главная страница']]);
+        $menu->addChild('Обо мне', ['route' => 'admin', 'routeParameters' => ['link' => 'about'],
+            'attributes' => ['title' => 'Обо мне']]);
         $menu->addChild('Картинка в шапке', ['route' => 'admin-main-images', 'attributes' => ['title' => 'Картинка в шапке']]);
 
         $gallery = $menu->addChild('Галерея', ['uri' => 'javascript:']);
@@ -37,6 +39,12 @@ class AdminMenu
         $blog->addChild('коментарии', ['route' => 'admin-blog-comments', 'attributes' => ['title' => 'Темы блога']]);
 
         $menu->addChild('Методические материалы', ['route' => 'admin-methodical-docs', 'attributes' => ['title' => 'Методические материалы']]);
+
+        $gameRoom = $menu->addChild('Игровая', ['uri' => 'javascript:']);
+        $gameRoom->addChild('категории', ['route' => 'admin-game-room-categories']);
+
+        $menu->addChild('Сообщения', ['route' => 'admin-messages', 'attributes' => ['title' => 'Сообщения']]);
+
         $menu->addChild('Выйти', ['route' => 'app_logout', 'attributes' => ['title' => 'Выйти']]);
 
         return $menu;

@@ -1,0 +1,65 @@
+{% extends 'admin.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/basic/checkbox-button.css') }}">
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/admin/game-room-categories.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h5>Добавление категории</h5>
+        <form enctype="multipart/form-data" method="post">
+            <div>
+                <input type="text" name="title" title="">
+            </div>
+            <div>
+                <input type="file" name="file">
+            </div>
+            <input type="submit" value="Добавить категорию">
+        </form>
+    </div>
+    <div>
+        <h3>Категории</h3>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Название категории</th>
+                <th>Иконка</th>
+                <th>Активность</th>
+                <th>Удалить</th>
+            </tr>
+            {% for category in categories %}
+                {% set id = category.id %}
+                <tr>
+                    <td>
+                        <a href="{{ path('admin-game-room-category', {id: id}) }}">{{ id }}</a>
+                    </td>
+                    <td>
+                        <input type="text" value="{{ category.title }}"
+                            title="" class="cat_title" data-id="{{ id }}">
+                    </td>
+                    <td><img src="{{ asset(dir~category.icon) }}" alt=""> </td>
+                    <td>
+                        <div class="can-toggle">
+                            <input type="hidden" name="active" value="yes">
+                            <input type="checkbox" name="active" id="active_{{ id }}" data-id="{{ id }}"
+                                value="yes" {{ category.active == 'yes' ? 'checked' : '' }}>
+                            <label for="active_{{ id }}">
+                                <span class="toggle-switch" data-checked="On"
+                                    data-unchecked="Off"></span>
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="?act=delete&id={{ id }}">
+                            <img src="{{ asset('images/delete-icon.png') }}" alt="">
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+
+

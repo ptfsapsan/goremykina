@@ -25,12 +25,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    event.controller_listener:
-        class: App\Listener\ControllerListener
-        tags:
-            - { name: kernel.event_listener, event: kernel.controller }
-    event.response_listener:
-        class: App\Listener\ResponseListener
-        tags:
-            - { name: kernel.event_listener, event: kernel.response }

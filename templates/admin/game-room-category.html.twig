@@ -1,0 +1,30 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+    <div>
+        <form enctype="multipart/form-data" method="post">
+            <input type="file" name="file">
+            <input type="submit" value="Загрузить картинку">
+        </form>
+    </div>
+    <div>
+        <h3>Картинки</h3>
+        <table>
+            <tr>
+                <th>Картинка</th>
+                <th>Удалить</th>
+            </tr>
+        {% for image in images %}
+            <tr>
+                <td><img src="{{ asset(dir~image.thumb) }}" alt=""> </td>
+                <td>
+                    <a href="?act=delete&id={{ image.id }}">
+                        <img src="{{ asset('images/delete-icon.png') }}" alt="">
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}

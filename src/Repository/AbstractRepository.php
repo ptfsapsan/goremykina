@@ -107,4 +107,39 @@ class AbstractRepository extends ServiceEntityRepository
         return $name;
     }
 
+    /**
+     * @param string $ext
+     * @return string
+     * @throws NonUniqueResultException
+     */
+    protected function getIconFileName(string $ext)
+    {
+        $name = sprintf('%s.%s', Tools::generateDigitCode(6), $ext);
+        $query = $this->createQueryBuilder('gi')
+            ->select('gi')
+            ->where('gi.icon = :name')
+            ->setParameter('name', $name);
+        $item = $query->getQuery()->getOneOrNullResult();
+        if ($item) {
+            return $this->getIconFileName($ext);
+        }
+
+        return $name;
+    }
+
+    /**
+     * @param int $id
+     * @param string $title
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws Exception
+     */
+    public function changeTitle(int $id, string $title)
+    {
+        $item = $this->getById($id);
+        $item->setTitle($title);
+        $this->_em->persist($item);
+        $this->_em->flush();
+    }
+
 }

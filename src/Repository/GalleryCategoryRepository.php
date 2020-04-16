@@ -20,21 +20,6 @@ class GalleryCategoryRepository extends AbstractRepository
     protected $entity = GalleryCategory::class;
 
     /**
-     * @param int $id
-     * @param string $title
-     * @throws ORMException
-     * @throws OptimisticLockException
-     * @throws Exception
-     */
-    public function changeTitle(int $id, string $title)
-    {
-        $item = $this->getById($id);
-        $item->setTitle($title);
-        $this->_em->persist($item);
-        $this->_em->flush();
-    }
-
-    /**
      * @param string $title
      * @throws ORMException
      * @throws OptimisticLockException

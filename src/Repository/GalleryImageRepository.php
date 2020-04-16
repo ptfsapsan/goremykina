@@ -5,10 +5,7 @@ namespace App\Repository;
 use App\Entity\GalleryImage;
 use App\Model\Images;
 use App\Model\Tools;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\Persistence\ManagerRegistry;
 use Exception;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -20,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class GalleryImageRepository extends AbstractRepository
 {
     protected $entity = GalleryImage::class;
+    public const PATH = '/images/gallery/';
 
     /**
      * @param int $categoryId
@@ -31,8 +29,9 @@ class GalleryImageRepository extends AbstractRepository
     {
         Tools::verifyImageFile($file);
         $dir = sprintf(
-            '%s/public/images/gallery/%d/%d/',
+            '%s/public%s%d/%d/',
             $this->projectDir,
+            self::PATH,
             $categoryId,
             $subcategoryId
         );
