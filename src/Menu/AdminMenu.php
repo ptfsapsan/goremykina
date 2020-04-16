@@ -36,6 +36,7 @@ class AdminMenu
         $blog->addChild('статьи', ['route' => 'admin-blog-articles', 'attributes' => ['title' => 'Темы блога']]);
         $blog->addChild('коментарии', ['route' => 'admin-blog-comments', 'attributes' => ['title' => 'Темы блога']]);
 
+        $menu->addChild('Методические материалы', ['route' => 'admin-methodical-docs', 'attributes' => ['title' => 'Методические материалы']]);
         $menu->addChild('Выйти', ['route' => 'app_logout', 'attributes' => ['title' => 'Выйти']]);
 
         return $menu;

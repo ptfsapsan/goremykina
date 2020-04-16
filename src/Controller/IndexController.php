@@ -113,7 +113,11 @@ class IndexController extends AbstractController
      */
     public function methodical()
     {
-        return new Response();
+        return $this->render('index/methodical.html.twig', [
+            'docs' => $this->getMethodicalDocRepository()->findAll(),
+            'docsDir' => $this->getMethodicalDocRepository()::PATH,
+            'mainImage' => $this->getMainImage(),
+        ]);
     }
 
     /**

@@ -30,10 +30,10 @@ class MainImageRepository extends AbstractRepository
      */
     public function saveImage(UploadedFile $file)
     {
-        Images::verifyImageFile($file);
+        Tools::verifyImageFile($file);
         $dir = sprintf(
             '%s/public/images/main-images/',
-            $this->container->get('kernel')->getProjectDir()
+            $this->projectDir
         );
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);

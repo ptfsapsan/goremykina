@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PortfolioDocRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MethodicalDocRepository")
  */
-class PortfolioDoc
+class MethodicalDoc
 {
     /**
      * @ORM\Id()
@@ -20,6 +20,11 @@ class PortfolioDoc
      * @ORM\Column(type="string", length=255)
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $file_name;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -41,6 +46,22 @@ class PortfolioDoc
         $this->title = $title;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFileName()
+    {
+        return $this->file_name;
+    }
+
+    /**
+     * @param mixed $file_name
+     */
+    public function setFileName($file_name): void
+    {
+        $this->file_name = $file_name;
     }
 
     public function getMime(): ?string

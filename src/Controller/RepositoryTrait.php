@@ -10,12 +10,14 @@ use App\Entity\GallerySubcategory;
 use App\Entity\MainImage;
 use App\Entity\Page;
 use App\Entity\PageImage;
+use App\Entity\MethodicalDoc;
 use App\Repository\GalleryCategoryRepository;
 use App\Repository\GalleryImageRepository;
 use App\Repository\GallerySubcategoryRepository;
 use App\Repository\MainImageRepository;
 use App\Repository\PageImageRepository;
 use App\Repository\PageRepository;
+use App\Repository\MethodicalDocRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectRepository;
 
@@ -37,7 +39,8 @@ trait RepositoryTrait
     private $mainImage;
     /** @var PageImageRepository */
     private $pageImageRepository;
-
+    /** @var MethodicalDocRepository */
+    private $methodicalDocRepository;
 
 
     /**
@@ -131,6 +134,18 @@ trait RepositoryTrait
         }
 
         return $this->pageImageRepository;
+    }
+
+    /**
+     * @return MethodicalDocRepository
+     */
+    protected function getMethodicalDocRepository()
+    {
+        if (empty($this->methodicalDocRepository)) {
+            $this->methodicalDocRepository = $this->doctrine->getRepository(MethodicalDoc::class);
+        }
+
+        return $this->methodicalDocRepository;
     }
 
 }

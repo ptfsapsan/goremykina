@@ -29,10 +29,10 @@ class GalleryImageRepository extends AbstractRepository
      */
     public function saveFile(int $categoryId, int $subcategoryId, UploadedFile $file): void
     {
-        Images::verifyImageFile($file);
+        Tools::verifyImageFile($file);
         $dir = sprintf(
             '%s/public/images/gallery/%d/%d/',
-            $this->container->get('kernel')->getProjectDir(),
+            $this->projectDir,
             $categoryId,
             $subcategoryId
         );

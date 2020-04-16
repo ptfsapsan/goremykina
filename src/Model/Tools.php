@@ -4,6 +4,9 @@
 namespace App\Model;
 
 
+use Exception;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class Tools
 {
     private const MIMES = [
@@ -43,6 +46,16 @@ class Tools
     }
 
     /**
+     * @param $mime_type
+     * @return bool
+     */
+    public static function isDoc($mime_type)
+    {
+        return strpos($mime_type, 'application') === 0
+            || strpos($mime_type, 'text') === 0;
+    }
+
+    /**
      * @param int $length
      * @return string
      */
@@ -68,6 +81,34 @@ class Tools
             return $ext;
         }
         return false;
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @throws Exception
+     */
+    public static function verifyImageFile(UploadedFile $file)
+    {
+        if ($file->getError() != 0) {
+            throw new Exception($file->getErrorMessage());
+        }
+        if (!self::isImage($file->getMimeType())) {
+            throw new Exception('Файл не является картинкой');
+        }
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @throws Exception
+     */
+    public static function verifyDocFile(UploadedFile $file)
+    {
+        if ($file->getError() != 0) {
+            throw new Exception($file->getErrorMessage());
+        }
+        if (!self::isDoc($file->getMimeType())) {
+            throw new Exception('Файл не является документом');
+        }
     }
 
 }

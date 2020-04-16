@@ -1,0 +1,39 @@
+{% extends 'admin.html.twig' %}
+
+{% block content %}
+    <div>
+        <h5>Добавление документа</h5>
+        <form enctype="multipart/form-data" method="post">
+            <div>
+                <input type="text" name="title" title="">
+            </div>
+            <div>
+                <input type="file" name="file">
+            </div>
+            <input type="submit" value="Добавить документ">
+        </form>
+    </div>
+    <div style="margin-top: 15px">
+        <h5>Загруженные документы</h5>
+        <table>
+            <tr>
+                <th>Файл</th>
+                <th>Удалить</th>
+            </tr>
+        {% for doc in docs %}
+            <tr>
+                <td>
+            <a href="{{ asset(dir~doc.getFileName()) }}">{{ doc.title }}</a>
+                </td>
+                <td>
+                    <a href="?act=delete&id={{ doc.id }}">
+                        <img src="{{ asset('images/delete-icon.png') }}" alt="delete">
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
+

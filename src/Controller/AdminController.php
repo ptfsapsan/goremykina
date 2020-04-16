@@ -56,6 +56,7 @@ class AdminController extends AbstractController
      * @return Response
      * @throws ORMException
      * @throws OptimisticLockException
+     * @throws Exception
      */
     public function galleryCategories(Request $request)
     {
@@ -228,6 +229,36 @@ class AdminController extends AbstractController
 
         return $this->render('admin/main-images.html.twig', [
             'images' => $this->getMainImageRepository()->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("methodical-docs", name="admin-methodical-docs")
+     * @param Request $request
+     * @return Response
+     * @throws NonUniqueResultException
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws Exception
+     */
+    public function methodicalDocs(Request $request)
+    {
+        if ($request->isMethod(Request::METHOD_POST)) {
+            if (!empty($request->files->get('file'))) {
+                $file = $request->files->get('file');
+                $title = $request->request->get('title');
+                $this->getMethodicalDocRepository()->saveDoc($file, $title);
+            }
+            return $this->redirectToRoute('admin-methodical-docs');
+        } else {
+            if ($request->query->getAlpha('act') == 'delete') {
+                $this->getMethodicalDocRepository()->deleteDoc($request->query->getInt('id'));
+            }
+        }
+
+        return $this->render('admin/methodical-docs.html.twig', [
+            'docs' => $this->getMethodicalDocRepository()->findAll(),
+            'dir' => $this->getMethodicalDocRepository()::PATH,
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\PageImage;
 use App\Model\Images;
+use App\Model\Tools;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Exception;
@@ -30,8 +31,8 @@ class PageImageRepository extends AbstractRepository
      */
     public function uploadPageImage(string $page, UploadedFile $file)
     {
-        Images::verifyImageFile($file);
-        $dir = sprintf('%s/public%s%s/', $this->container->get('kernel')->getProjectDir(), self::PATH, $page);
+        Tools::verifyImageFile($file);
+        $dir = sprintf('%s/public%s%s/', $this->projectDir, self::PATH, $page);
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
         }
