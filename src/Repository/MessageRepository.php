@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Message;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -40,6 +41,7 @@ class MessageRepository extends ServiceEntityRepository
         $item->setName($params['name']);
         $item->setEmail($params['email']);
         $item->setText($params['text']);
+        $item->setDate(new DateTime());
         $this->_em->persist($item);
         $this->_em->flush();
     }

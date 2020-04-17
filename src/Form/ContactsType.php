@@ -5,11 +5,11 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactsType extends AbstractType
@@ -18,6 +18,19 @@ class ContactsType extends AbstractType
     {
         $builder
             ->setMethod('POST')
+            ->add('name', TextType::class, [
+                'label' => 'Представьтесь пожалуйста',
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Как к Вам обращаться?'
+                    ]),
+                ],
+                'trim' => true,
+            ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'required' => true,
@@ -31,22 +44,17 @@ class ContactsType extends AbstractType
                 ],
                 'trim' => true,
             ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Пароль',
+            ->add('text', TextareaType::class, [
+                'label' => 'Ваше сообщение',
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Введите пожалуйста пароль'
-                    ]),
-                    new Length([
-                        'max' => 20,
-                        'maxMessage' => 'Пароль не должен быть длинее {{ limit }} символов.'
+                        'message' => 'Введите пожалуйста сообщение'
                     ]),
                 ],
-                'trim' => true,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Отправить',
@@ -55,8 +63,6 @@ class ContactsType extends AbstractType
                 ],
             ])
         ;
-        $email = $builder->get('email');
-        $builder->add($email);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -2,7 +2,11 @@
 
 namespace App\Controller;
 
+use App\Form\ContactsType;
 use App\Form\LoginType;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Redis;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,9 +36,6 @@ class IndexController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
-        if ($error) {
-            $this->addFlash('warning', 'No such user');
-        }
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
         $form = $this->createForm(LoginType::class);
@@ -148,16 +149,20 @@ class IndexController extends AbstractController
      * @Route("/contacts", name="contacts")
      * @param Request $request
      * @return Response
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function contacts(Request $request)
     {
         if ($request->isMethod(Request::METHOD_POST)) {
-            $params = $request->request->all();
+            $params = $request->request->all()['contacts'];
             $this->getMessageRepository()->add($params);
             return $this->redirectToRoute('contacts');
         }
+        $form = $this->createForm(ContactsType::class);
 
         return $this->render('index/contacts.html.twig', [
+            'form' => $form->createView(),
             'mainImage' => $this->getMainImage(),
         ]);
     }

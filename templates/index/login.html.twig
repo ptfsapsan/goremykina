@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    {{ error }}
+    {{ error ? 'Проверьте пожалуйста правильно ли Вы ввели логин и пароль' : '' }}
     <div id="home">
         <div id="wrap">
             <h1>Вход</h1>
